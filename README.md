@@ -1,7 +1,7 @@
 # esignet-mock-services
 Repository contains mock implementation of auth for e-signet
 
-## Installing in k8s cluster using helm
+### Installing in k8s cluster using helm
 ### Pre-requisites
 1. Set the kube config file of the Mosip cluster having dependent services is set correctly in PC.
 1. Make sure [DB setup](db_scripts/README.md#install-in-existing-mosip-k8-cluster) is done.
