@@ -16,7 +16,7 @@ helm repo add mosip https://mosip.github.io/mosip-helm
 helm repo update
 
 echo Installing Softhsm for mock-identity-system
-helm -n $NS install softhsm-mock-identity-system mosip/softhsm -f softhsm-values.yaml --version $SOFTHSM_CHART_VERSION --wait
+helm -n $NS install softhsm-mock-identity-system mosip/softhsm -f softhsm-values.yaml --set image.repository=technogovstack/softhsm --set image.tag=v2 --version $SOFTHSM_CHART_VERSION --wait
 echo Installed Softhsm for mock-identity-system
 
 ./copy_cm_func.sh secret softhsm-mock-identity-system softhsm config-server

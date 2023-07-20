@@ -19,7 +19,7 @@ echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 
 echo Installing mock-identity-system
-helm -n $NS install mock-identity-system mosip/mock-identity-system --version $CHART_VERSION
+helm -n $NS install mock-identity-system mosip/mock-identity-system --set image.repository=technogovstack/mock-identity-system --set image.tag=0.9.0 --version $CHART_VERSION
 
 kubectl -n $NS get deploy mock-identity-system -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
