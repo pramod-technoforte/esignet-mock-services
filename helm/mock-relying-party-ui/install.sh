@@ -38,7 +38,7 @@ helm -n $NS install mock-relying-party-ui mosip/mock-relying-party-ui \
     --set mock_relying_party_ui.REDIRECT_URI="https://$MOCK_UI_HOST/userprofile" \
     --set mock_relying_party_ui.REDIRECT_URI_REGISTRATION="https://$MOCK_UI_HOST/registration" \
     --set istio.hosts\[0\]="$MOCK_UI_HOST" \
-    --set image.repository=technogovstack/mock_relying_party_ui \
+    --set image.repository=technogovstack/mock-relying-party-ui \
     --set image.tag=0.9.0 \
     --version $CHART_VERSION
 
