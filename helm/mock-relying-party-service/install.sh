@@ -58,7 +58,7 @@ echo Installing Mock Relying Party Service
 helm -n $NS install mock-relying-party-service mosip/mock-relying-party-service \
     --set mock_relying_party_service.ESIGNET_SERVICE_URL="$ESIGNET_SERVICE_URL" \
     --set mock_relying_party_service.ESIGNET_AUD_URL="https://$API_HOST/v1/esignet/oauth/token" \
-    --set image.repository=technogovstack/mock_relying_party_service \
+    --set image.repository=technogovstack/mock-relying-party-service \
     --set image.tag=0.9.0 \
     --version $CHART_VERSION
 
