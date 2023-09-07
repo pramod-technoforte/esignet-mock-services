@@ -66,13 +66,13 @@ ENV hsm_local_dir_name=${hsm_local_dir}
 #&& apt-get install -y unzip file   \
 #&& groupadd -g ${container_user_gid} ${container_user_group} \
 #&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
-#&& adduser ${container_user}  \
-#&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
+&& adduser ${container_user} sudo \
+&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
 
 # set working directory for the user
-WORKDIR /home/mosip/
+WORKDIR /home/${container_user}
 #WORKDIR /root/
-ENV work_dir=/home/mosip/
+ENV work_dir=/home/${container_user}
 #ENV work_dir=/root/
 ARG loader_path=${work_dir}/additional_jars/
 
@@ -87,12 +87,12 @@ RUN chmod +x configure_start.sh
 ADD target/mock-identity-system-*.jar  mock-identity-system.jar
 
 # change permissions of file inside working dir
-RUN chown -R mosip:mosip /home/mosip/
-#RUN chown -R root:root /root/
+#RUN chown -R mosip:mosip /home/mosip/
+RUN chown -R ${container_user}:${container_user} /home/${container_user}
 
 # select container user for all tasks
 #USER ${container_user_uid}:${container_user_gid}
-USER root
+USER ${container_user_uid}:${container_user_gid}
 
 EXPOSE 8081
 EXPOSE 9010
