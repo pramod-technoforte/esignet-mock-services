@@ -46,16 +46,16 @@ ENV artifactory_url_env=${artifactory_url}
 ENV hsm_zip_file_path=${hsm_client_zip_path}
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
-ARG container_user=root
+ARG container_user=mosip
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
-ARG container_user_group=root
+ARG container_user_group=mosip
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
-#ARG container_user_uid=root
+ARG container_user_uid=1001
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
-#ARG container_user_gid=1001
+ARG container_user_gid=1001
 
 ARG hsm_local_dir=hsm-client
 
@@ -70,10 +70,10 @@ ENV hsm_local_dir_name=${hsm_local_dir}
 #&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
 
 # set working directory for the user
-#WORKDIR /home/${container_user}
-WORKDIR /root/
-#ENV work_dir=/home/${container_user}
-ENV work_dir=/root/
+WORKDIR /home/${container_user}
+#WORKDIR /root/
+ENV work_dir=/home/${container_user}
+#ENV work_dir=/root/
 ARG loader_path=${work_dir}/additional_jars/
 
 RUN mkdir -p ${loader_path}
@@ -87,7 +87,8 @@ RUN chmod +x configure_start.sh
 ADD target/mock-identity-system-*.jar  mock-identity-system.jar
 
 # change permissions of file inside working dir
-RUN chown -R root:root /root/
+RUN chown -R ${container_user}:${container_user} /home/${container_user}
+#RUN chown -R root:root /root/
 
 # select container user for all tasks
 #USER ${container_user_uid}:${container_user_gid}
