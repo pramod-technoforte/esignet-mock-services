@@ -63,11 +63,11 @@ ENV hsm_local_dir_name=${hsm_local_dir}
 
 # install packages and create user
 RUN apt-get -y update \
-&& apt-get install -y unzip file sudo  \
+&& apt-get install -y unzip file   \
 && groupadd -g ${container_user_gid} ${container_user_group} \
 #&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
-#&& adduser ${container_user} sudo \
-#&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
+&& adduser ${container_user}  \
+&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
 
 # set working directory for the user
 WORKDIR /home/${container_user}
@@ -90,7 +90,8 @@ ADD target/mock-identity-system-*.jar  mock-identity-system.jar
 RUN chown -R ${container_user}:${container_user} /home/${container_user}
 
 # select container user for all tasks
-USER ${container_user_uid}:${container_user_gid}
+#USER ${container_user_uid}:${container_user_gid}
+USER root
 
 EXPOSE 8081
 EXPOSE 9010
