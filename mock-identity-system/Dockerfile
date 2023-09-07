@@ -46,7 +46,7 @@ ENV artifactory_url_env=${artifactory_url}
 ENV hsm_zip_file_path=${hsm_client_zip_path}
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
-ARG container_user=root
+ARG container_user=mosip
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
 ARG container_user_group=mosip
