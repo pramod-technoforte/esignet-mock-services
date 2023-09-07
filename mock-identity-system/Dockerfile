@@ -62,8 +62,8 @@ ARG hsm_local_dir=hsm-client
 ENV hsm_local_dir_name=${hsm_local_dir}
 
 # install packages and create user
-RUN apt-get -y update \
-&& apt-get install -y unzip file   \
+#RUN apt-get -y update \
+#&& apt-get install -y unzip file   \
 #&& groupadd -g ${container_user_gid} ${container_user_group} \
 #&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
 #&& adduser ${container_user}  \
