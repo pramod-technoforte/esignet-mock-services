@@ -80,29 +80,29 @@ RUN mkdir -p ${loader_path}
 
 ENV loader_path_env=${loader_path}
 
-#ADD configure_start.sh configure_start.sh
+ADD configure_start.sh configure_start.sh
 
-#RUN chmod +x configure_start.sh
+RUN chmod +x configure_start.sh
 
-#ADD target/mock-identity-system-*.jar  mock-identity-system.jar
+ADD target/mock-identity-system-*.jar  mock-identity-system.jar
 
 # change permissions of file inside working dir
-#RUN chown -R ${container_user}:${container_user} /home/${container_user}
+RUN chown -R ${container_user}:${container_user} /home/${container_user}
 
 # select container user for all tasks
-#USER ${container_user_uid}:${container_user_gid}
+USER ${container_user_uid}:${container_user_gid}
 
-#EXPOSE 8081
-#EXPOSE 9010
+EXPOSE 8081
+EXPOSE 9010
 
-#ENTRYPOINT [ "./configure_start.sh" ]
+ENTRYPOINT [ "./configure_start.sh" ]
 
-#CMD if [ "$is_glowroot_env" = "present" ]; then \
- #   wget -q --show-progress "${artifactory_url_env}"/artifactory/libs-release-local/io/mosip/testing/glowroot.zip ; \
- #   unzip glowroot.zip ; \
- #   rm -rf glowroot.zip ; \
- #   sed -i 's/<service_name>/mock-identity-system/g' glowroot/glowroot.properties ; \
- #   java -jar -javaagent:glowroot/glowroot.jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
- #   else \
- #   java -jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
- #   fi
+CMD if [ "$is_glowroot_env" = "present" ]; then \
+    wget -q --show-progress "${artifactory_url_env}"/artifactory/libs-release-local/io/mosip/testing/glowroot.zip ; \
+    unzip glowroot.zip ; \
+    rm -rf glowroot.zip ; \
+    sed -i 's/<service_name>/mock-identity-system/g' glowroot/glowroot.properties ; \
+    java -jar -javaagent:glowroot/glowroot.jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
+    else \
+    java -jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
+    fi
