@@ -52,10 +52,10 @@ ARG container_user=root
 ARG container_user_group=root
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
-ARG container_user_uid=root
+#ARG container_user_uid=root
 
 # can be passed during Docker build as build time environment for github branch to pickup configuration from.
-ARG container_user_gid=1001
+#ARG container_user_gid=1001
 
 ARG hsm_local_dir=hsm-client
 
@@ -66,8 +66,8 @@ RUN apt-get -y update \
 && apt-get install -y unzip file sudo  \
 && groupadd -g ${container_user_gid} ${container_user_group} \
 #&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
-&& adduser ${container_user} sudo \
-&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
+#&& adduser ${container_user} sudo \
+#&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
 
 # set working directory for the user
 WORKDIR /home/${container_user}
