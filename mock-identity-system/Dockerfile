@@ -87,7 +87,7 @@ RUN chmod +x configure_start.sh
 ADD target/mock-identity-system-*.jar  mock-identity-system.jar
 
 # change permissions of file inside working dir
-RUN chown -R ${container_user}:${container_user} /home/${container_user}
+RUN chown -R root:root /root/
 
 # select container user for all tasks
 #USER ${container_user_uid}:${container_user_gid}
