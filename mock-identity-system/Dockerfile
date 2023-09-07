@@ -70,10 +70,10 @@ RUN apt-get -y update \
 #&& echo "%sudo ALL=(ALL) NOPASSWD:/home/${container_user}/${hsm_local_dir}/install.sh" >> /etc/sudoers
 
 # set working directory for the user
-WORKDIR /home/${container_user}
-
-ENV work_dir=/home/${container_user}
-
+#WORKDIR /home/${container_user}
+WORKDIR /root/
+#ENV work_dir=/home/${container_user}
+ENV work_dir=/root/
 ARG loader_path=${work_dir}/additional_jars/
 
 RUN mkdir -p ${loader_path}
