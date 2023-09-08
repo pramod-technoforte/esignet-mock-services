@@ -37,5 +37,8 @@ cd ./$DIR_NAME && chmod +x install.sh && sudo ./install.sh
 echo "Installation complete"
 cd $work_dir
 echo "************"
-exec "$@"
+#exec "$@"
+for arg in "$@"; do
+    echo "$arg"
+done
 echo "#############"
