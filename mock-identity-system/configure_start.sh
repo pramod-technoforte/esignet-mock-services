@@ -42,3 +42,4 @@ for arg in "$@"; do
     echo "$arg"
 done
 echo "#############"
+exit 0
