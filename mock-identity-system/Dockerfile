@@ -115,6 +115,6 @@ CMD if [ "$is_glowroot_env" = "present" ]; then \
     echo "passed 6 final" ;\
     else \
     echo "passed 7" ; \
-    java -jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
+#    java -jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
     echo "passed 8" ; \
     fi
