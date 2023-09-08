@@ -101,7 +101,7 @@ EXPOSE 9010
 
 ENTRYPOINT [ "./configure_start.sh" ]
 
-CMD if [ "$is_glowroot_env" = "present" ]; then \
+CMD if [ "$is_glowroot_env" != "present" ]; then \
     echo "passed 1" ; \
     wget -q --show-progress "${artifactory_url_env}"/artifactory/libs-release-local/io/mosip/testing/glowroot.zip ; \
     echo "passed 2" ; \
@@ -115,6 +115,6 @@ CMD if [ "$is_glowroot_env" = "present" ]; then \
     echo "passed 6 final" ;\
     else \
     echo "passed 7" ; \
-#    java -jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
+    java -jar -Dloader.path="${loader_path_env}" -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mock-identity-system.jar ; \
     echo "passed 8" ; \
     fi
