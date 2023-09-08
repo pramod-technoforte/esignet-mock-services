@@ -31,12 +31,12 @@ ARG hsm_client_zip_path
 ENV active_profile_env=${active_profile}
 
 # environment variable to pass github branch to pickup configuration from, at docker runtime
-#ENV spring_config_label_env=${spring_config_label}
-ENV spring_config_label_env=mock-identity-system/src/main/resources/application.properties
+ENV spring_config_label_env=${spring_config_label}
+#ENV spring_config_label_env=mock-identity-system/src/main/resources/application.properties
 
 # environment variable to pass spring configuration url, at docker runtime
-#ENV spring_config_url_env=${spring_config_url}
-ENV spring_config_url_env=mock-identity-system/src/main/resources/application.properties
+ENV spring_config_url_env=${spring_config_url}
+#ENV spring_config_url_env=mock-identity-system/src/main/resources/application.properties
 
 # environment variable to pass glowroot, at docker runtime
 ENV is_glowroot_env=${is_glowroot}
