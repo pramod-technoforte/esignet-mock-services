@@ -101,7 +101,7 @@ EXPOSE 9010
 
 ENTRYPOINT [ "./configure_start.sh" ]
 
-CMD if [ "$is_glowroot_env" != "present" ]; then \
+CMD if [ "$is_glowroot_env" = "present" ]; then \
     echo "passed 1" ; \
     wget -q --show-progress "${artifactory_url_env}"/artifactory/libs-release-local/io/mosip/testing/glowroot.zip ; \
     echo "passed 2" ; \
