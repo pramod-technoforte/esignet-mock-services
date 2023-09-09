@@ -36,10 +36,10 @@ echo "Attempting to install"
 cd ./$DIR_NAME && chmod +x install.sh && sudo ./install.sh
 echo "Installation complete"
 cd $work_dir
-echo "************"
+#echo "************"
 exec "$@"
-for arg in "$@"; do
-    echo "$arg"
-done
-echo "#############"
-exit 1
+#for arg in "$@"; do
+ #   echo "$arg"
+#done
+#echo "#############"
+#exit 1
