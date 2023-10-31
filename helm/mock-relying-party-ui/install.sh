@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=esignet
+NS=idbb-esignet
 CHART_VERSION=0.9.0
 
 read -p "Please provide mock relying party ui domain (eg: healthservices.sandbox.xyz.net ) : " MOCK_UI_HOST
@@ -38,8 +38,6 @@ helm -n $NS install mock-relying-party-ui mosip/mock-relying-party-ui \
     --set mock_relying_party_ui.REDIRECT_URI="https://$MOCK_UI_HOST/userprofile" \
     --set mock_relying_party_ui.REDIRECT_URI_REGISTRATION="https://$MOCK_UI_HOST/registration" \
     --set istio.hosts\[0\]="$MOCK_UI_HOST" \
-    --set image.repository=technogovstack/mock-relying-party-ui \
-    --set image.tag=0.9.0 \
     --version $CHART_VERSION
 
 kubectl -n $NS get deploy mock-relying-party-ui -o name |  xargs -n1 -t  kubectl -n $NS rollout status
