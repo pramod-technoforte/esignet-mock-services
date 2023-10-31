@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=esignet
+NS=idbb-esignet
 CHART_VERSION=0.9.0
 
 echo Create $NS namespace
@@ -50,16 +50,14 @@ kubectl -n $NS create secret generic mock-relying-party-service-secrets --from-f
 kubectl -n $NS create secret generic jwe-userinfo-service-secrets --from-file="/tmp/jwe-userinfo-private-key"
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
-DEFAULT_ESIGNET_SERVICE_URL='http://esignet.esignet/v1/esignet'
-read -p "Please provide Esignet service url : ( default: http://esignet.esignet/v1/esignet )" USER_PROVIDED_ESIGNET_SERVICE_URL
+DEFAULT_ESIGNET_SERVICE_URL='http://esignet.idbb-esignet/v1/esignet'
+read -p "Please provide Esignet service url : ( default: http://esignet.idbb-esignet/v1/esignet )" USER_PROVIDED_ESIGNET_SERVICE_URL
 ESIGNET_SERVICE_URL=${USER_PROVIDED_ESIGNET_SERVICE_URL:-$DEFAULT_ESIGNET_SERVICE_URL}
 
 echo Installing Mock Relying Party Service
 helm -n $NS install mock-relying-party-service mosip/mock-relying-party-service \
     --set mock_relying_party_service.ESIGNET_SERVICE_URL="$ESIGNET_SERVICE_URL" \
     --set mock_relying_party_service.ESIGNET_AUD_URL="https://$API_HOST/v1/esignet/oauth/token" \
-    --set image.repository=technogovstack/mock-relying-party-service \
-    --set image.tag=0.9.0 \
     --version $CHART_VERSION
 
 kubectl -n $NS get deploy mock-relying-party-service -o name |  xargs -n1 -t  kubectl -n $NS rollout status

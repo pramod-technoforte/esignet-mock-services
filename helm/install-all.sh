@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 ROOT_DIR=`pwd`
-NS=softhsm
+NS=idbb-softhsm
 SOFTHSM_CHART_VERSION=12.0.1-B2
 
 echo Istio label
@@ -19,15 +19,15 @@ echo Installing Softhsm for mock-identity-system
 helm -n $NS install softhsm-mock-identity-system mosip/softhsm -f softhsm-values.yaml --set image.repository=technogovstack/softhsm --set image.tag=v2 --version $SOFTHSM_CHART_VERSION --wait
 echo Installed Softhsm for mock-identity-system
 
-./copy_cm_func.sh secret softhsm-mock-identity-system softhsm config-server
+./copy_cm_func.sh secret softhsm-mock-identity-system idbb-softhsm idbb-config-server
 
-kubectl -n config-server set env --keys=security-pin --from secret/softhsm-mock-identity-system deployment/config-server --prefix=SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SOFTHSM_MOCK_IDENTITY_SYSTEM_
+kubectl -n idbb-config-server set env --keys=security-pin --from secret/softhsm-mock-identity-system deployment/config-server --prefix=SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SOFTHSM_MOCK_IDENTITY_SYSTEM_
 
-#kubectl -n config-server get deploy -o name |  xargs -n1 -t  kubectl -n config-server rollout status
+kubectl -n idbb-config-server get deploy -o name |  xargs -n1 -t  kubectl -n idbb-config-server rollout status
 
 declare -a module=("mock-identity-system"
                    "mock-relying-party-service"
-		           "mock-relying-party-ui"
+                           "mock-relying-party-ui"
                   )
 
 echo Installing esignet mock services
@@ -38,4 +38,4 @@ do
   ./install.sh
 done
 
-echo All esignet mock services deployed sucessfully.
+echo All esignet mock services deployed sucessfully

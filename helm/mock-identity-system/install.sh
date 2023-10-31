@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=esignet
+NS=idbb-esignet
 CHART_VERSION=0.9.0
 
 echo Create $NS namespace
